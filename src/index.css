@@ -5,21 +5,27 @@
   font-family: "Outfit", sans-serif;
 }
 
+button {
+  cursor: pointer;
+}
+
 @theme {
+  --color-bg-main: #191022;
   --color-bg-base: #110e1f;
   --color-bg-surface: #1a1530;
   --color-bg-elevated: #1e1a38;
-  --color-bg-card: #252040;
-  --color-accent-primary: #7c3aed;
+  --color-bg-card: rgba(30, 41, 59, 0.5);
+  --color-stroke-card: #334155;
+  --color-accent-primary: #7311D4;
   --color-accent-bright: #9d6fff;
   --color-accent-glow: #a78bfa;
   --color-text-primary: #f0eaff;
-  --color-text-secondary: #c4b8e0;
+  --color-text-secondary: #94a3b8;
   --color-text-muted: #6b6080;
   --color-border-subtle: rgba(255, 255, 255, 0.06);
   --color-progress-track: #2d2550;
-  --color-progress-fill: #7c3aed;
+  --color-progress-fill: #7311D4;
   --color-bar-default: #3b2f6e;
-  --color-bar-active: #7c3aed;
+  --color-bar-active: #7311D4;
   --color-today-bar: #4a5568;
 }
