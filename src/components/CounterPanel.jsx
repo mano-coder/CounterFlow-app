@@ -5,7 +5,7 @@ export default function CounterPanel({ activeProfile }) {
     <div className="text-text-primary bg-bg-main flex flex-1 flex-col">
       <div className="flex items-center justify-between px-8 pt-8">
         <div>
-          <h1 className="text-text-primary text-2xl font-bold">
+          <h1 className="text-text-primary text-3xl font-extrabold">
             {activeProfile.name}
           </h1>
           <p className="text-text-muted text-sm">
@@ -23,11 +23,11 @@ export default function CounterPanel({ activeProfile }) {
       </div>
 
       <div className="flex flex-col items-center justify-around">
-        <div className="m-5 flex items-center justify-center">
+        <div className="m-10 flex items-center justify-center">
           <span
             className="text-text-primary leading-none font-black"
             style={{
-              fontSize: "14rem",
+              fontSize: "180px",
               textShadow: `
               0 0 40px rgba(167,139,250,0.8),
               0 0 80px rgba(124,58,237,0.5),
@@ -59,9 +59,6 @@ export default function CounterPanel({ activeProfile }) {
             </button>
             <span
               className="text-accent-bright text-[10px] font-extrabold tracking-widest"
-              style={{
-                boxShadow: "0px 0px 10px #7311D450",
-              }}
             >
               ADD REP
             </span>
