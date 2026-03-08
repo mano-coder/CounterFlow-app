@@ -26,7 +26,8 @@ svg.lucide {
   --color-border-subtle: rgba(255, 255, 255, 0.06);
   --color-progress-track: #2d2550;
   --color-progress-fill: #7311d4;
-  --color-bar-default: #3b2f6e;
+  --color-bar-default: #351e56;
   --color-bar-active: #7311d4;
-  --color-today-bar: #4a5568;
+  --color-today-bar: #2e457e;
+  --color-bg-stats: #241c2d;
 }
