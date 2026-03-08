@@ -3,6 +3,7 @@
 
 * {
   font-family: "Outfit", sans-serif;
+  scroll-behavior: smooth;
 }
 
 button,
@@ -30,4 +31,22 @@ svg.lucide {
   --color-bar-active: #7311d4;
   --color-today-bar: #2e457e;
   --color-bg-stats: #241c2d;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-accent-primary);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-bright);
 }
