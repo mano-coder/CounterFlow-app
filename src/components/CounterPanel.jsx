@@ -2,7 +2,7 @@ import { Minus, Plus, RotateCcw, History, Share2 } from "lucide-react";
 
 export default function CounterPanel({ activeProfile }) {
   return (
-    <div className="text-text-primary bg-bg-main flex flex-1 flex-col">
+    <div className="text-text-primary bg-bg-main flex min-h-screen flex-1 flex-col">
       <div className="flex items-center justify-between px-8 pt-8">
         <div>
           <h1 className="text-text-primary text-3xl font-extrabold">
@@ -23,7 +23,7 @@ export default function CounterPanel({ activeProfile }) {
       </div>
 
       <div className="flex flex-col items-center justify-around">
-        <div className="m-10 flex items-center justify-center">
+        <div className="m-15 flex items-center justify-center">
           <span
             className="text-text-primary leading-none font-black"
             style={{
@@ -57,9 +57,7 @@ export default function CounterPanel({ activeProfile }) {
             >
               <Plus size={45} strokeWidth={3} />
             </button>
-            <span
-              className="text-accent-bright text-[10px] font-extrabold tracking-widest"
-            >
+            <span className="text-accent-bright text-[10px] font-extrabold tracking-widest">
               ADD REP
             </span>
           </div>
