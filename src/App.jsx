@@ -48,11 +48,11 @@ export default function App() {
 
   return (
     <div className="bg-bg-base flex h-screen overflow-hidden">
-      {/* <Sidebar */}
-      {/*   profiles={profiles} */}
-      {/*   activeId={activeId} */}
-      {/*   onSelectProfile={(id) => setActiveId(id)} */}
-      {/* /> */}
+      <Sidebar
+        profiles={profiles}
+        activeId={activeId}
+        onSelectProfile={(id) => setActiveId(id)}
+      />
       <main className="flex flex-1 flex-col overflow-y-auto">
         <CounterPanel activeProfile={activeProfile} />
         <QuickStats activeProfile={activeProfile} />
