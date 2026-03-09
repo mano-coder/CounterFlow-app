@@ -46,6 +46,48 @@ export default function App() {
 
   const activeProfile = profiles.find((profile) => profile.id === activeId);
 
+  const handleDecrease = () => {
+    const newValue = profiles.map((profile) => {
+      if (profile.id === activeId) {
+        return {
+          ...profile,
+          count: profile.count - 1,
+        };
+      } else {
+        return profile;
+      }
+    });
+    setProfiles(newValue);
+  };
+
+  const handleIncrease = () => {
+    const newValue = profiles.map((profile) => {
+      if (profile.id === activeId) {
+        return {
+          ...profile,
+          count: profile.count + 1,
+        };
+      } else {
+        return profile;
+      }
+    });
+    setProfiles(newValue);
+  };
+
+  const resetCount = () => {
+    const newValue = profiles.map((profile) => {
+      if (profile.id === activeId) {
+        return {
+          ...profile,
+          count: 0,
+        };
+      } else {
+        return profile;
+      }
+    });
+    setProfiles(newValue);
+  };
+
   return (
     <div className="bg-bg-base flex h-screen overflow-hidden">
       <Sidebar
@@ -54,7 +96,12 @@ export default function App() {
         onSelectProfile={(id) => setActiveId(id)}
       />
       <main className="flex flex-1 flex-col overflow-y-auto">
-        <CounterPanel activeProfile={activeProfile} />
+        <CounterPanel
+          activeProfile={activeProfile}
+          handleDecrease={handleDecrease}
+          handleIncrease={handleIncrease}
+          resetCount={resetCount}
+        />
         <QuickStats activeProfile={activeProfile} />
       </main>
     </div>
