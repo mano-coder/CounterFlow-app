@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Sidebar from "./components/Sidebar";
 import CounterPanel from "./components/CounterPanel";
@@ -41,10 +41,20 @@ const initialProfiles = [
 ];
 
 export default function App() {
-  const [profiles, setProfiles] = useState(initialProfiles);
-  const [activeId, setActiveId] = useState("water-intake");
+  const [profiles, setProfiles] = useState(() => {
+    const savedItems = localStorage.getItem("profiles");
+    if (savedItems) {
+      return JSON.parse(savedItems);
+    }
+    return initialProfiles;
+  });
 
+  const [activeId, setActiveId] = useState("gym-reps");
   const activeProfile = profiles.find((profile) => profile.id === activeId);
+
+  useEffect(() => {
+    localStorage.setItem("profiles", JSON.stringify(profiles));
+  }, [profiles]);
 
   const handleDecrease = () => {
     const newValue = profiles.map((profile) => {
