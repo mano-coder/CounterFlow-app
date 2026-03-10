@@ -46,7 +46,8 @@ export default function App() {
   const increase = () => handleIncrease();
   const decrease = () => handleDecrease();
   const reset = () => resetCount();
-  useKeyboard({ increase, decrease, reset });
+  const tab = () => switchProfileKey();
+  useKeyboard({ increase, decrease, reset, tab });
 
   const [profiles, setProfiles] = useState(() => {
     const savedItems = localStorage.getItem("profiles");
@@ -56,7 +57,7 @@ export default function App() {
     return initialProfiles;
   });
 
-  const [activeId, setActiveId] = useState("gym-reps");
+  const [activeId, setActiveId] = useState("project-tasks");
   const activeProfile = profiles.find((profile) => profile.id === activeId);
 
   useEffect(() => {
@@ -68,7 +69,7 @@ export default function App() {
       if (profile.id === activeId) {
         return {
           ...profile,
-          count: profile.count - 1,
+          count: profile.count > 0 ? profile.count - 1 : 0,
         };
       } else {
         return profile;
@@ -103,6 +104,18 @@ export default function App() {
       }
     });
     setProfiles(newValue);
+  };
+
+  const switchProfileKey = () => {
+    const activeIdIndex = profiles.findIndex(
+      (id) => id.id === activeProfile.id,
+    );
+    const nextActiveId = profiles[activeIdIndex + 1];
+    if (activeIdIndex < profiles.length - 1) {
+      setActiveId(nextActiveId.id);
+    } else {
+      setActiveId(profiles[0].id);
+    }
   };
 
   return (
