@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useKeyboard } from "./hooks/useKeyboard";
 
 import Sidebar from "./components/Sidebar";
 import CounterPanel from "./components/CounterPanel";
@@ -41,6 +42,12 @@ const initialProfiles = [
 ];
 
 export default function App() {
+  // set shortcuts
+  const increase = () => handleIncrease();
+  const decrease = () => handleDecrease();
+  const reset = () => resetCount();
+  useKeyboard({ increase, decrease, reset });
+
   const [profiles, setProfiles] = useState(() => {
     const savedItems = localStorage.getItem("profiles");
     if (savedItems) {
