@@ -64,6 +64,7 @@ export default function App() {
     }
     return profiles[0].id;
   });
+
   const activeProfile = profiles.find((profile) => profile.id === activeId);
 
   useEffect(() => {
