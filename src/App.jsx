@@ -57,12 +57,22 @@ export default function App() {
     return initialProfiles;
   });
 
-  const [activeId, setActiveId] = useState("project-tasks");
+  const [activeId, setActiveId] = useState(() => {
+    const savedActiveId = localStorage.getItem("active-id")
+    if (savedActiveId) {
+      return JSON.parse(savedActiveId);
+    }
+    return profiles[0].id;
+  });
   const activeProfile = profiles.find((profile) => profile.id === activeId);
 
   useEffect(() => {
     localStorage.setItem("profiles", JSON.stringify(profiles));
   }, [profiles]);
+
+  useEffect(() => {
+    localStorage.setItem("active-id", JSON.stringify(activeId));
+  }, [activeId]);
 
   const handleDecrease = () => {
     const newValue = profiles.map((profile) => {
