@@ -78,8 +78,8 @@ export default function CounterPanel({
             >
               <RotateCcw size={24} strokeWidth={3} />
             </button>
-            <span className="text-text-muted text-[10px] font-bold tracking-widest">
-              REST
+            <span className="text-text-muted text-[10px] font-bold tracking-widest" >
+              RESET
             </span>
           </div>
         </div>
