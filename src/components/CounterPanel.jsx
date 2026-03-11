@@ -4,7 +4,7 @@ export default function CounterPanel({
   activeProfile,
   handleDecrease,
   handleIncrease,
-  resetCount,
+  onResetClick,
 }) {
   return (
     <div className="text-text-primary bg-bg-main flex min-h-screen flex-1 flex-col">
@@ -74,7 +74,7 @@ export default function CounterPanel({
           <div className="flex flex-col items-center gap-2">
             <button
               className="text-text-secondary hover:bg-accent-bright border-stroke-card flex h-[64px] w-[64px] items-center justify-center rounded-2xl border border-2 bg-[#1E293B80]"
-              onClick={() => resetCount()}
+              onClick={() => onResetClick()}
             >
               <RotateCcw size={24} strokeWidth={3} />
             </button>

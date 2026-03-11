@@ -42,13 +42,6 @@ const initialProfiles = [
 ];
 
 export default function App() {
-  // set shortcuts
-  const increase = () => handleIncrease();
-  const decrease = () => handleDecrease();
-  const reset = () => resetCount();
-  const tab = () => switchProfileKey();
-  useKeyboard({ increase, decrease, reset, tab });
-
   const [profiles, setProfiles] = useState(() => {
     const savedItems = localStorage.getItem("profiles");
     if (savedItems) {
@@ -64,6 +57,8 @@ export default function App() {
     }
     return profiles[0].id;
   });
+
+  const [isResetOpen, setIsResetOpen] = useState(false);
 
   const activeProfile = profiles.find((profile) => profile.id === activeId);
 
@@ -129,9 +124,30 @@ export default function App() {
     }
   };
 
+  // set shortcuts
+  useKeyboard({
+    increase: handleIncrease,
+    decrease: handleDecrease,
+    reset: () => setIsResetOpen(true),
+    tab: switchProfileKey,
+    isModalOpen: isResetOpen,
+    closeModal: () => setIsResetOpen(false),
+    confirm: () => { resetCount(); setIsResetOpen(false) },
+  });
+
   return (
     <>
-      <ConfirmationDialog />
+      {isResetOpen && (
+        <ConfirmationDialog
+          onConfirm={() => {
+            {
+              resetCount();
+              setIsResetOpen(false);
+            }
+          }}
+          onCancel={() => setIsResetOpen(false)}
+        />
+      )}
       <div className="bg-bg-base flex h-screen overflow-hidden">
         <Sidebar
           profiles={profiles}
@@ -143,7 +159,7 @@ export default function App() {
             activeProfile={activeProfile}
             handleDecrease={handleDecrease}
             handleIncrease={handleIncrease}
-            resetCount={resetCount}
+            onResetClick={() => setIsResetOpen(true)}
           />
           <QuickStats activeProfile={activeProfile} />
         </main>
