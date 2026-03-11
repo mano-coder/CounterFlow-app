@@ -3,8 +3,8 @@ import { useKeyboard } from "./hooks/useKeyboard";
 
 import Sidebar from "./components/Sidebar";
 import CounterPanel from "./components/CounterPanel";
-import CounterDisplay from "./components/CounterDisplay";
 import QuickStats from "./components/QuickStats";
+import ConfirmationDialog from "./components/ConfirmationDialog";
 
 const initialProfiles = [
   {
@@ -58,7 +58,7 @@ export default function App() {
   });
 
   const [activeId, setActiveId] = useState(() => {
-    const savedActiveId = localStorage.getItem("active-id")
+    const savedActiveId = localStorage.getItem("active-id");
     if (savedActiveId) {
       return JSON.parse(savedActiveId);
     }
@@ -130,21 +130,24 @@ export default function App() {
   };
 
   return (
-    <div className="bg-bg-base flex h-screen overflow-hidden">
-      <Sidebar
-        profiles={profiles}
-        activeId={activeId}
-        onSelectProfile={(id) => setActiveId(id)}
-      />
-      <main className="flex flex-1 flex-col overflow-y-auto">
-        <CounterPanel
-          activeProfile={activeProfile}
-          handleDecrease={handleDecrease}
-          handleIncrease={handleIncrease}
-          resetCount={resetCount}
+    <>
+      <ConfirmationDialog />
+      <div className="bg-bg-base flex h-screen overflow-hidden">
+        <Sidebar
+          profiles={profiles}
+          activeId={activeId}
+          onSelectProfile={(id) => setActiveId(id)}
         />
-        <QuickStats activeProfile={activeProfile} />
-      </main>
-    </div>
+        <main className="flex flex-1 flex-col overflow-y-auto">
+          <CounterPanel
+            activeProfile={activeProfile}
+            handleDecrease={handleDecrease}
+            handleIncrease={handleIncrease}
+            resetCount={resetCount}
+          />
+          <QuickStats activeProfile={activeProfile} />
+        </main>
+      </div>
+    </>
   );
 }
