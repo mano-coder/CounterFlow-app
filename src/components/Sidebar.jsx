@@ -1,6 +1,6 @@
 import logo from "../assets/images/logo.svg";
 import { ICON_MAP } from "../data/iconRegistry";
-import { CircleDashed, Settings } from "lucide-react";
+import { CircleDashed, Settings, Plus } from "lucide-react";
 
 export default function Sidebar({ profiles, activeId, onSelectProfile }) {
   return (
@@ -8,9 +8,18 @@ export default function Sidebar({ profiles, activeId, onSelectProfile }) {
       <img src={logo} alt="CounterFlow logo" className="mt-4" />
 
       <nav className="flex-1 overflow-y-auto px-2 py-4">
-        <p className="text-text-muted mb-3 px-2 text-[10px] font-semibold tracking-widest">
-          COUNTER PROFILES
-        </p>
+        <div className="text-accent-bright flex items-center justify-between">
+          <p className="text-text-muted mb-3 px-2 text-[10px] font-semibold tracking-widest">
+            COUNTER PROFILES
+          </p>
+          <button class="bg-accent-primary/20 text-primary hover:bg-primary flex items-center justify-center gap-1 rounded-md px-2 py-1 transition-all hover:text-white">
+            <Plus
+              className="material-symbols-outlined text-sm font-bold"
+              size={22}
+            />
+            <span class="text-[10px] font-bold uppercase">Add</span>
+          </button>
+        </div>
 
         {profiles.map((profile) => {
           const Icon = ICON_MAP[profile.icon] ?? CircleDashed;
