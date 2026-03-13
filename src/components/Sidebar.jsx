@@ -7,17 +7,17 @@ export default function Sidebar({ profiles, activeId, onSelectProfile }) {
     <aside className="flex h-full w-[270px] flex-col justify-between border-r border-violet-800/7 bg-[#20132F] p-3">
       <img src={logo} alt="CounterFlow logo" className="mt-4" />
 
-      <nav className="flex-1 overflow-y-auto px-2 py-4">
-        <div className="text-accent-bright flex items-center justify-between">
-          <p className="text-text-muted mb-3 px-2 text-[10px] font-semibold tracking-widest">
+      <nav className="mb-3 flex-1 overflow-y-auto px-2 py-4">
+        <div className="text-accent-bright mb-3 flex items-center justify-between pl-2">
+          <p className="text-text-muted text-[12px] font-semibold tracking-widest">
             COUNTER PROFILES
           </p>
-          <button class="bg-accent-primary/20 text-primary hover:bg-primary flex items-center justify-center gap-1 rounded-md px-2 py-1 transition-all hover:text-white">
+          <button className="bg-accent-primary/20 text-primary hover:bg-primary flex items-center justify-center gap-1 rounded-md px-2 py-1 transition-all hover:text-white">
             <Plus
               className="material-symbols-outlined text-sm font-bold"
-              size={22}
+              size={17}
             />
-            <span class="text-[10px] font-bold uppercase">Add</span>
+            <span className="text-[8px] font-bold uppercase">Add</span>
           </button>
         </div>
 
