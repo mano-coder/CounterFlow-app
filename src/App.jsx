@@ -5,6 +5,7 @@ import Sidebar from "./components/Sidebar";
 import CounterPanel from "./components/CounterPanel";
 import QuickStats from "./components/QuickStats";
 import ConfirmationDialog from "./components/ConfirmationDialog";
+import CreateProfileModal from "./components/CreateProfileModal";
 
 const initialProfiles = [
   {
@@ -132,11 +133,15 @@ export default function App() {
     tab: switchProfileKey,
     isModalOpen: isResetOpen,
     closeModal: () => setIsResetOpen(false),
-    confirm: () => { resetCount(); setIsResetOpen(false) },
+    confirm: () => {
+      resetCount();
+      setIsResetOpen(false);
+    },
   });
 
   return (
     <>
+      <CreateProfileModal onCancel={() => onCancel} />
       {isResetOpen && (
         <ConfirmationDialog
           onConfirm={() => {
