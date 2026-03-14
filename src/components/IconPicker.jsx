@@ -91,7 +91,7 @@ export default function IconPicker({ onSelect, selectedIcon }) {
             <button
               key={iconName}
               onClick={() => onSelect(iconName)}
-              className={`flex items-center justify-center rounded-xl p-2 transition-colors ${
+              className={`flex h-10 w-10 items-center justify-center rounded-xl p-2 transition-colors ${
                 selectedIcon === iconName
                   ? "bg-accent-primary shadow-accent-primary/50 shadow-lg"
                   : "bg-white/10 hover:bg-white/20"

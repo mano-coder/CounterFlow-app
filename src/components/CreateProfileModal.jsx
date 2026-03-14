@@ -7,7 +7,6 @@ export default function CreateProfileModal({ onCancel }) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#191022]/80 backdrop-blur-[2px]">
       <div className="bg-progress-fill/30 border-progress-fill/30 items-left flex flex-col gap-4 rounded-[32px] border px-10 py-8 text-white shadow-2xl shadow-black/10 backdrop-blur-[4px]">
-
         <div className="gap-1">
           <h1 className="text-2xl font-semibold tracking-wide text-white">
             Create New Profile
@@ -17,7 +16,10 @@ export default function CreateProfileModal({ onCancel }) {
           </p>
         </div>
 
-        <IconPicker selectedIcon={selectedIcon} onSelect={(icon) => setSelectedIcon(icon)} />
+        <IconPicker
+          selectedIcon={selectedIcon}
+          onSelect={(icon) => setSelectedIcon(icon)}
+        />
 
         <div className="flex w-full flex-col gap-1">
           <label className="text-text-secondary/80 text-sm">PROFILE NAME</label>
@@ -36,16 +38,11 @@ export default function CreateProfileModal({ onCancel }) {
         <div className="mt-3 flex w-full gap-3">
           <button
             className="flex-1 rounded-xl bg-white/10 px-10 py-3 font-semibold hover:bg-white/20"
-            onClick={() => onCancel()}
+            onClick={onCancel}
           >
             Cancel
           </button>
-          <button
-            className="shadow-progress-fill/20 bg-accent-primary hover:bg-accent-bright flex-1 rounded-xl px-10 py-3 font-semibold shadow-lg"
-            onClick={onCancel}
-          >
-            Reset
-          </button>
+          <button className="shadow-progress-fill/20 bg-accent-primary hover:bg-accent-bright flex-1 rounded-xl px-10 py-3 font-semibold shadow-lg">Create</button>
         </div>
       </div>
     </div>
