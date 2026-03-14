@@ -1,9 +1,13 @@
-import { Search } from "lucide-react";
+import { useState } from "react";
+import IconPicker from "./IconPicker";
 
 export default function CreateProfileModal({ onCancel }) {
+  const [selectedIcon, setSelectedIcon] = useState(null);
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#191022]/80 backdrop-blur-[2px]">
       <div className="bg-progress-fill/30 border-progress-fill/30 items-left flex flex-col gap-4 rounded-[32px] border px-10 py-8 text-white shadow-2xl shadow-black/10 backdrop-blur-[4px]">
+
         <div className="gap-1">
           <h1 className="text-2xl font-semibold tracking-wide text-white">
             Create New Profile
@@ -12,21 +16,9 @@ export default function CreateProfileModal({ onCancel }) {
             Personalize your tracking space with a custom icon
           </p>
         </div>
-        <div className="relative w-full rounded-xl bg-white/10 px-3 py-2">
-          <Search
-            className="absolute top-1/2 left-3 -translate-y-1/2"
-            size={16}
-          />
-          <input
-            placeholder="Search icons..."
-            className="w-full pl-9 outline-none"
-          />
-        </div>
-        <div className="flex gap-2">{/* map over categories array */}</div>
-        // Icon grid
-        <div className="grid max-h-[180px] w-full grid-cols-6 gap-2 overflow-y-auto">
-          {/* map over filtered icons */}
-        </div>
+
+        <IconPicker selectedIcon={selectedIcon} onSelect={(icon) => setSelectedIcon(icon)} />
+
         <div className="flex w-full flex-col gap-1">
           <label className="text-text-secondary/80 text-sm">PROFILE NAME</label>
           <input
