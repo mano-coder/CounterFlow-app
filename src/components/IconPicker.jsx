@@ -83,7 +83,7 @@ export default function IconPicker({ onSelect, selectedIcon }) {
           );
         })}
       </div>
-      <div className="grid h-[100px] w-full grid-cols-6 gap-2 overflow-y-auto">
+      <div className="grid h-[90px] w-full grid-cols-6 gap-2 overflow-y-auto">
         {filteredIcons.map((iconName) => {
           const Icon = LucideIcons[iconName];
           if (!Icon) return null;

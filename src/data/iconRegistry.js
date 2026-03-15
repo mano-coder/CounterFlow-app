@@ -1,9 +1,8 @@
-import { Dumbbell, Droplet, Flame, Utensils } from "lucide-react";
+import * as LucideIcons from "lucide-react";
 
-// The lookup table
-export const ICON_MAP = {
-  dumbbell: Dumbbell,
-  droplet: Droplet,
-  flame: Flame,
-  utensils: Utensils,
+export const getIcon = (name) => {
+  if (!name) return LucideIcons.CircleDashed;
+  // handles both "dumbbell" and "Dumbbell"
+  const capitalized = name.charAt(0).toUpperCase() + name.slice(1);
+  return LucideIcons[capitalized] ?? LucideIcons.CircleDashed;
 };

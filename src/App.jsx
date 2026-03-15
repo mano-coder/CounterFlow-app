@@ -60,6 +60,7 @@ export default function App() {
   });
 
   const [isResetOpen, setIsResetOpen] = useState(false);
+  const [showCreateModal, setShowCreateModal] = useState(false);
 
   const activeProfile = profiles.find((profile) => profile.id === activeId);
 
@@ -125,6 +126,20 @@ export default function App() {
     }
   };
 
+  const handleCreate = ({ name, icon, dailyGoal }) => {
+    const newProfile = {
+      id: crypto.randomUUID(),
+      name,
+      icon,
+      count: 0,
+      goal: Number(dailyGoal) || 0,
+      history: [],
+    };
+    setProfiles([...profiles, newProfile]);
+    setActiveId(newProfile.id);
+    setShowCreateModal(false);
+  };
+
   // set shortcuts
   useKeyboard({
     increase: handleIncrease,
@@ -141,7 +156,12 @@ export default function App() {
 
   return (
     <>
-      <CreateProfileModal onCancel={() => onCancel} />
+      {showCreateModal && (
+        <CreateProfileModal
+          onCancel={() => setShowCreateModal(false)}
+          onCreate={handleCreate}
+        />
+      )}
       {isResetOpen && (
         <ConfirmationDialog
           onConfirm={() => {
@@ -158,6 +178,7 @@ export default function App() {
           profiles={profiles}
           activeId={activeId}
           onSelectProfile={(id) => setActiveId(id)}
+          onCreateProfile={() => setShowCreateModal(true)}
         />
         <main className="flex flex-1 flex-col overflow-y-auto">
           <CounterPanel

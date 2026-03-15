@@ -1,8 +1,15 @@
 import { useState } from "react";
 import IconPicker from "./IconPicker";
 
-export default function CreateProfileModal({ onCancel }) {
+export default function CreateProfileModal({ onCancel, onCreate }) {
   const [selectedIcon, setSelectedIcon] = useState(null);
+  const [profileName, setProfileName] = useState("");
+  const [dailyGoal, setDailyGoal] = useState("");
+
+  const handleCreate = () => {
+    if (!profileName.trim() || !selectedIcon) return;
+    onCreate({ name: profileName, icon: selectedIcon, dailyGoal });
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#191022]/80 backdrop-blur-[2px]">
@@ -26,6 +33,7 @@ export default function CreateProfileModal({ onCancel }) {
           <input
             className="w-base relative rounded-md bg-white/10 px-1 px-3 py-2 text-sm outline-none"
             placeholder="e.g., Morning Routine"
+            onChange={(e) => setProfileName(e.target.value)}
           />
         </div>
         <div className="flex w-full flex-col gap-1">
@@ -33,6 +41,7 @@ export default function CreateProfileModal({ onCancel }) {
           <input
             type="number"
             className="w-base h-8xl relative appearance-none rounded-md bg-white/10 px-1 px-3 py-2 text-sm outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+            onChange={(e) => setDailyGoal(e.target.value)}
           />
         </div>
         <div className="mt-3 flex w-full gap-3">
@@ -42,7 +51,12 @@ export default function CreateProfileModal({ onCancel }) {
           >
             Cancel
           </button>
-          <button className="shadow-progress-fill/20 bg-accent-primary hover:bg-accent-bright flex-1 rounded-xl px-10 py-3 font-semibold shadow-lg">Create</button>
+          <button
+            className="shadow-progress-fill/20 bg-accent-primary hover:bg-accent-bright flex-1 rounded-xl px-10 py-3 font-semibold shadow-lg"
+            onClick={handleCreate}
+          >
+            Create
+          </button>
         </div>
       </div>
     </div>
