@@ -140,6 +140,12 @@ export default function App() {
     setShowCreateModal(false);
   };
 
+  const handleDelete = (id) => {
+  const updated = profiles.filter((profile) => profile.id !== id);
+  setProfiles(updated);
+  if (activeId === id) setActiveId(updated[0]?.id ?? null);
+};
+
   // set shortcuts
   useKeyboard({
     increase: handleIncrease,
@@ -179,6 +185,7 @@ export default function App() {
           activeId={activeId}
           onSelectProfile={(id) => setActiveId(id)}
           onCreateProfile={() => setShowCreateModal(true)}
+    onDeleteProfile={handleDelete}
         />
         <main className="flex flex-1 flex-col overflow-y-auto">
           <CounterPanel

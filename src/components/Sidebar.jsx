@@ -1,12 +1,13 @@
 import logo from "../assets/images/logo.svg";
 import { getIcon } from "../data/iconRegistry";
-import { Plus,Settings } from "lucide-react"
+import { Plus, Settings, X } from "lucide-react";
 
 export default function Sidebar({
   profiles,
   activeId,
   onSelectProfile,
   onCreateProfile,
+  onDeleteProfile,
 }) {
   return (
     <aside className="flex h-full w-[270px] flex-col justify-between border-r border-violet-800/7 bg-[#20132F] p-3">
@@ -37,7 +38,7 @@ export default function Sidebar({
             <div
               key={profile.id}
               onClick={() => onSelectProfile(profile.id)}
-              className={`mb-1 flex cursor-pointer items-center gap-3 rounded-xl px-3 py-3 ${isActive ? "text-text-primary border border-purple-900 bg-[#311351]" : "text-text-secondary hover:bg-bg-card"}`}
+              className={`group mb-1 flex cursor-pointer items-center gap-3 rounded-xl px-3 py-3 ${isActive ? "text-text-primary border border-purple-900 bg-[#311351]" : "text-text-secondary hover:bg-bg-card"}`}
             >
               <Icon
                 size={20}
@@ -46,8 +47,17 @@ export default function Sidebar({
               />
               <span className="text-base font-medium">{profile.name}</span>
               {isActive && (
-                <div className="bg-accent-primary ml-auto h-2 w-2 rounded-full"></div>
+                <div className="bg-accent-primary ml-auto h-2 w-2 rounded-full group-hover:hidden"></div>
               )}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation(); // prevent triggering onSelectProfile
+                  onDeleteProfile(profile.id);
+                }}
+                className="text-accent-primary ml-auto hidden rounded-md p-1 group-hover:block hover:text-white"
+              >
+                <X size={18} />
+              </button>
             </div>
           );
         })}
