@@ -51,10 +51,10 @@ export default function Sidebar({
               )}
               <button
                 onClick={(e) => {
-                  e.stopPropagation(); // prevent triggering onSelectProfile
+                  e.stopPropagation();
                   onDeleteProfile(profile.id);
                 }}
-                className="text-accent-primary ml-auto hidden rounded-md p-1 group-hover:block hover:text-white"
+                className="text-accent-primary ml-auto hidden rounded-md group-hover:flex hover:text-white"
               >
                 <X size={18} />
               </button>

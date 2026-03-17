@@ -141,10 +141,10 @@ export default function App() {
   };
 
   const handleDelete = (id) => {
-  const updated = profiles.filter((profile) => profile.id !== id);
-  setProfiles(updated);
-  if (activeId === id) setActiveId(updated[0]?.id ?? null);
-};
+    const updated = profiles.filter((profile) => profile.id !== id);
+    setProfiles(updated);
+    if (activeId === id) setActiveId(updated[0]?.id ?? null);
+  };
 
   // set shortcuts
   useKeyboard({
@@ -158,6 +158,9 @@ export default function App() {
       resetCount();
       setIsResetOpen(false);
     },
+    setShowCreateModal: () => setShowCreateModal(true),
+    handleCreate: handleCreate,
+    isCreateOpen: showCreateModal,
   });
 
   return (
@@ -185,7 +188,7 @@ export default function App() {
           activeId={activeId}
           onSelectProfile={(id) => setActiveId(id)}
           onCreateProfile={() => setShowCreateModal(true)}
-    onDeleteProfile={handleDelete}
+          onDeleteProfile={handleDelete}
         />
         <main className="flex flex-1 flex-col overflow-y-auto">
           <CounterPanel

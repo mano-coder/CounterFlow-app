@@ -8,6 +8,8 @@ export function useKeyboard({
   isModalOpen,
   closeModal,
   confirm,
+  setShowCreateModal,
+  isCreateOpen,
 }) {
   useHotkeys(
     "ArrowUp",
@@ -49,5 +51,13 @@ export function useKeyboard({
       confirm();
     },
     { enabled: isModalOpen },
+  );
+  useHotkeys(
+    "n",
+    (e) => {
+      e.preventDefault();
+      setShowCreateModal();
+    },
+    { enabled: !isCreateOpen },
   );
 }

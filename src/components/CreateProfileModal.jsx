@@ -1,5 +1,6 @@
 import { useState } from "react";
 import IconPicker from "./IconPicker";
+import { useHotkeys } from "react-hotkeys-hook";
 
 export default function CreateProfileModal({ onCancel, onCreate }) {
   const [selectedIcon, setSelectedIcon] = useState(null);
@@ -10,6 +11,12 @@ export default function CreateProfileModal({ onCancel, onCreate }) {
     if (!profileName.trim() || !selectedIcon) return;
     onCreate({ name: profileName, icon: selectedIcon, dailyGoal });
   };
+
+  // handle enter and escape locally where the data lives
+  useHotkeys("enter", handleCreate, {
+    enabled: !!profileName.trim() && !!selectedIcon,
+  });
+  useHotkeys("escape", onCancel);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#191022]/80 backdrop-blur-[2px]">
