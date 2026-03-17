@@ -8,6 +8,7 @@ export default function Sidebar({
   onSelectProfile,
   onCreateProfile,
   onDeleteProfile,
+  setClickedDeleteProfileId,
 }) {
   return (
     <aside className="flex h-full w-[270px] flex-col justify-between border-r border-violet-800/7 bg-[#20132F] p-3">
@@ -52,7 +53,8 @@ export default function Sidebar({
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-                  onDeleteProfile(profile.id);
+                  setClickedDeleteProfileId(profile.id);
+                  onDeleteProfile();
                 }}
                 className="text-accent-primary ml-auto hidden rounded-md group-hover:flex hover:text-white"
               >

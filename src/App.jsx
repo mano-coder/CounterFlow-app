@@ -6,6 +6,7 @@ import CounterPanel from "./components/CounterPanel";
 import QuickStats from "./components/QuickStats";
 import ConfirmationDialog from "./components/ConfirmationDialog";
 import CreateProfileModal from "./components/CreateProfileModal";
+import DeleteConfirmationDialog from "./components/DeleteConfirmationDialog";
 
 const initialProfiles = [
   {
@@ -61,8 +62,11 @@ export default function App() {
 
   const [isResetOpen, setIsResetOpen] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  console.log(showDeleteModal);
 
   const activeProfile = profiles.find((profile) => profile.id === activeId);
+  const [clickedDeleteProfileId, setClickedDeleteProfileId] = useState("");
 
   useEffect(() => {
     localStorage.setItem("profiles", JSON.stringify(profiles));
@@ -165,6 +169,15 @@ export default function App() {
 
   return (
     <>
+      {showDeleteModal && (
+        <DeleteConfirmationDialog
+          onConfirm={() => {
+            setShowDeleteModal(false);
+            handleDelete(clickedDeleteProfileId);
+          }}
+          onCancel={() => setShowDeleteModal(false)}
+        />
+      )}
       {showCreateModal && (
         <CreateProfileModal
           onCancel={() => setShowCreateModal(false)}
@@ -188,7 +201,8 @@ export default function App() {
           activeId={activeId}
           onSelectProfile={(id) => setActiveId(id)}
           onCreateProfile={() => setShowCreateModal(true)}
-          onDeleteProfile={handleDelete}
+          onDeleteProfile={() => setShowDeleteModal(true)}
+          setClickedDeleteProfileId={setClickedDeleteProfileId}
         />
         <main className="flex flex-1 flex-col overflow-y-auto">
           <CounterPanel
