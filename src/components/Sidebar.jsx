@@ -14,7 +14,7 @@ export default function Sidebar({
     <aside className="flex h-full w-[270px] flex-col justify-between border-r border-violet-800/7 bg-[#20132F] p-3">
       <img src={logo} alt="CounterFlow logo" className="mt-4" />
 
-      <nav className="mb-3 flex-1 overflow-y-auto px-2 py-4">
+      <nav className="mb-3 flex-1 px-2 py-4">
         <div className="text-accent-bright mb-3 flex items-center justify-between pl-2">
           <p className="text-text-muted text-[12px] font-semibold tracking-widest">
             COUNTER PROFILES
@@ -31,38 +31,40 @@ export default function Sidebar({
           </button>
         </div>
 
-        {profiles.map((profile) => {
-          const Icon = getIcon(profile.icon);
-          const isActive = profile.id === activeId;
+        <div className="overflow-y-auto min-h-[100px] bg-red-300">
+          {profiles.map((profile) => {
+            const Icon = getIcon(profile.icon);
+            const isActive = profile.id === activeId;
 
-          return (
-            <div
-              key={profile.id}
-              onClick={() => onSelectProfile(profile.id)}
-              className={`group mb-1 flex cursor-pointer items-center gap-3 rounded-xl px-3 py-3 ${isActive ? "text-text-primary border border-purple-900 bg-[#311351]" : "text-text-secondary hover:bg-bg-card"}`}
-            >
-              <Icon
-                size={20}
-                className={`${isActive ? "text-accent-primary" : ""}`}
-                strokeWidth={3}
-              />
-              <span className="text-base font-medium">{profile.name}</span>
-              {isActive && (
-                <div className="bg-accent-primary ml-auto h-2 w-2 rounded-full group-hover:hidden"></div>
-              )}
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setClickedDeleteProfileId(profile.id);
-                  onDeleteProfile();
-                }}
-                className="text-accent-primary ml-auto hidden rounded-md group-hover:flex hover:text-white"
+            return (
+              <div
+                key={profile.id}
+                onClick={() => onSelectProfile(profile.id)}
+                className={`group mb-1 flex cursor-pointer items-center gap-3 overflow-y-auto rounded-xl px-3 py-3 ${isActive ? "text-text-primary border border-purple-900 bg-[#311351]" : "text-text-secondary hover:bg-bg-card"}`}
               >
-                <X size={18} />
-              </button>
-            </div>
-          );
-        })}
+                <Icon
+                  size={20}
+                  className={`${isActive ? "text-accent-primary" : ""}`}
+                  strokeWidth={3}
+                />
+                <span className="text-base font-medium">{profile.name}</span>
+                {isActive && (
+                  <div className="bg-accent-primary ml-auto h-2 w-2 rounded-full group-hover:hidden"></div>
+                )}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setClickedDeleteProfileId(profile.id);
+                    onDeleteProfile();
+                  }}
+                  className="text-accent-primary ml-auto hidden rounded-md group-hover:flex hover:text-white"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+            );
+          })}
+        </div>
       </nav>
       <div className="mb-4 px-2">
         <div className="text-text-primary rounded-xl bg-[#28133F] p-4">

@@ -63,7 +63,6 @@ export default function App() {
   const [isResetOpen, setIsResetOpen] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  console.log(showDeleteModal);
 
   const activeProfile = profiles.find((profile) => profile.id === activeId);
   const [clickedDeleteProfileId, setClickedDeleteProfileId] = useState("");

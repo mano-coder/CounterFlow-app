@@ -13,10 +13,9 @@ export default function CreateProfileModal({ onCancel, onCreate }) {
   };
 
   // handle enter and escape locally where the data lives
-  useHotkeys("enter", handleCreate, {
-    enabled: !!profileName.trim() && !!selectedIcon,
-  });
-  useHotkeys("escape", onCancel);
+// ✅ Pass references, don't call them
+useHotkeys("enter", handleCreate, { enabled: !!profileName.trim() && !!selectedIcon })
+useHotkeys("escape", onCancel)
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#191022]/80 backdrop-blur-[2px]">
