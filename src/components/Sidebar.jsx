@@ -1,3 +1,4 @@
+import { useRef, useEffect } from "react";
 import logo from "../assets/images/logo.svg";
 import { getIcon } from "../data/iconRegistry";
 import { Plus, Settings, X } from "lucide-react";
@@ -9,7 +10,15 @@ export default function Sidebar({
   onCreateProfile,
   onDeleteProfile,
   setClickedDeleteProfileId,
+  progressCalc,
 }) {
+  const profileRefs = useRef({});
+  useEffect(() => {
+    profileRefs.current[activeId]?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+    });
+  }, [activeId]);
   return (
     <aside className="flex h-full w-[270px] flex-col justify-between border-r border-violet-800/7 bg-[#20132F] p-3">
       <img src={logo} alt="CounterFlow logo" className="mt-4" />
@@ -39,6 +48,7 @@ export default function Sidebar({
             return (
               <div
                 key={profile.id}
+                ref={(el) => (profileRefs.current[profile.id] = el)}
                 onClick={() => onSelectProfile(profile.id)}
                 className={`group mb-1 flex cursor-pointer items-center gap-3 overflow-y-auto rounded-xl px-3 py-3 ${isActive ? "text-text-primary border border-purple-900 bg-[#311351]" : "text-text-secondary hover:bg-bg-card"}`}
               >

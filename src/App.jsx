@@ -67,6 +67,14 @@ export default function App() {
   const activeProfile = profiles.find((profile) => profile.id === activeId);
   const [clickedDeleteProfileId, setClickedDeleteProfileId] = useState("");
 
+  const progressCalc =
+    activeProfile.goal > 0
+      ? Math.min(
+          Math.round((activeProfile.count / activeProfile.goal) * 100),
+          100,
+        )
+      : 0;
+
   useEffect(() => {
     localStorage.setItem("profiles", JSON.stringify(profiles));
   }, [profiles]);
@@ -202,6 +210,7 @@ export default function App() {
           onCreateProfile={() => setShowCreateModal(true)}
           onDeleteProfile={() => setShowDeleteModal(true)}
           setClickedDeleteProfileId={setClickedDeleteProfileId}
+          progressCalc={progressCalc}
         />
         <main className="flex flex-1 flex-col overflow-y-auto">
           <CounterPanel
