@@ -12,9 +12,10 @@ export default function CreateProfileModal({ onCancel, onCreate }) {
     onCreate({ name: profileName, icon: selectedIcon, dailyGoal });
   };
 
-
-useHotkeys("enter", handleCreate, { enabled: !!profileName.trim() && !!selectedIcon })
-useHotkeys("escape", onCancel)
+  useHotkeys("enter", handleCreate, {
+    enabled: !!profileName.trim() && !!selectedIcon,
+  });
+  useHotkeys("escape", onCancel);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#191022]/80 backdrop-blur-[2px]">
@@ -36,7 +37,7 @@ useHotkeys("escape", onCancel)
         <div className="flex w-full flex-col gap-1">
           <label className="text-text-secondary/80 text-sm">PROFILE NAME</label>
           <input
-            className="relative rounded-md bg-white/10  px-3 py-2 text-sm outline-none"
+            className="relative rounded-md bg-white/10 px-3 py-2 text-sm outline-none"
             placeholder="e.g., Morning Routine"
             onChange={(e) => setProfileName(e.target.value)}
           />

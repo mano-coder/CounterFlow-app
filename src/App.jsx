@@ -7,7 +7,7 @@ import QuickStats from "./components/QuickStats";
 import ConfirmationDialog from "./components/ConfirmationDialog";
 import CreateProfileModal from "./components/CreateProfileModal";
 import DeleteConfirmationDialog from "./components/DeleteConfirmationDialog";
-import EmptyState from "./components/EmptyState"
+import EmptyState from "./components/EmptyState";
 
 const initialProfiles = [
   {
@@ -67,14 +67,6 @@ export default function App() {
 
   const activeProfile = profiles.find((profile) => profile.id === activeId);
   const [clickedDeleteProfileId, setClickedDeleteProfileId] = useState("");
-
-  const progressCalc =
-    activeProfile.goal > 0
-      ? Math.min(
-          Math.round((activeProfile.count / activeProfile.goal) * 100),
-          100,
-        )
-      : 0;
 
   useEffect(() => {
     localStorage.setItem("profiles", JSON.stringify(profiles));
@@ -175,6 +167,30 @@ export default function App() {
     isCreateOpen: showCreateModal,
   });
 
+  if (profiles.length === 0) {
+    return (
+      <>
+        {showCreateModal && (
+          <CreateProfileModal
+            onCancel={() => setShowCreateModal(false)}
+            onCreate={handleCreate}
+          />
+        )}
+        {!showCreateModal && (
+          <EmptyState onCreateProfile={() => setShowCreateModal(true)} />
+        )}
+      </>
+    );
+  }
+
+  const progressCalc =
+    activeProfile.goal > 0
+      ? Math.min(
+          Math.round((activeProfile.count / activeProfile.goal) * 100),
+          100,
+        )
+      : 0;
+
   return (
     <>
       {showDeleteModal && (
@@ -203,6 +219,7 @@ export default function App() {
           onCancel={() => setIsResetOpen(false)}
         />
       )}
+
       <div className="bg-bg-base flex h-screen overflow-hidden">
         <Sidebar
           profiles={profiles}
