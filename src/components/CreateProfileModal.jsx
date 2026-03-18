@@ -12,8 +12,7 @@ export default function CreateProfileModal({ onCancel, onCreate }) {
     onCreate({ name: profileName, icon: selectedIcon, dailyGoal });
   };
 
-  // handle enter and escape locally where the data lives
-// ✅ Pass references, don't call them
+
 useHotkeys("enter", handleCreate, { enabled: !!profileName.trim() && !!selectedIcon })
 useHotkeys("escape", onCancel)
 
