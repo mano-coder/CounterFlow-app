@@ -10,10 +10,6 @@ export default function Sidebar({
   onDeleteProfile,
   setClickedDeleteProfileId,
 }) {
-  const activeProfile = profiles.find((profile) => profile.id === activeId);
-  const progressCalc = (activeProfile.count / activeProfile.goal) * 100;
-  console.log(progressCalc);
-
   return (
     <aside className="flex h-full w-[270px] flex-col justify-between border-r border-violet-800/7 bg-[#20132F] p-3">
       <img src={logo} alt="CounterFlow logo" className="mt-4" />
@@ -82,7 +78,7 @@ export default function Sidebar({
             />
           </div>
           <span className="text-progress-fill flex justify-end text-xs font-semibold">
-    {progressCalc}% Reached
+            {progressCalc}% Reached
           </span>
         </div>
         <div className="mt-3 flex items-center justify-between">
