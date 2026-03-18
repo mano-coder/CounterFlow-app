@@ -31,7 +31,7 @@ export default function Sidebar({
           </button>
         </div>
 
-        <div className="overflow-y-auto min-h-[100px] bg-red-300">
+        <div className="h-[260px] overflow-y-auto">
           {profiles.map((profile) => {
             const Icon = getIcon(profile.icon);
             const isActive = profile.id === activeId;
