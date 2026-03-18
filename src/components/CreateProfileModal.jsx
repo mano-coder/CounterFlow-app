@@ -36,7 +36,7 @@ useHotkeys("escape", onCancel)
         <div className="flex w-full flex-col gap-1">
           <label className="text-text-secondary/80 text-sm">PROFILE NAME</label>
           <input
-            className="w-base relative rounded-md bg-white/10 px-1 px-3 py-2 text-sm outline-none"
+            className="relative rounded-md bg-white/10  px-3 py-2 text-sm outline-none"
             placeholder="e.g., Morning Routine"
             onChange={(e) => setProfileName(e.target.value)}
           />
@@ -45,7 +45,7 @@ useHotkeys("escape", onCancel)
           <label className="text-text-secondary/80 text-sm">DAILY GOAL</label>
           <input
             type="number"
-            className="w-base h-8xl relative appearance-none rounded-md bg-white/10 px-1 px-3 py-2 text-sm outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+            className="relative appearance-none rounded-md bg-white/10 px-1 px-3 py-2 text-sm outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
             onChange={(e) => setDailyGoal(e.target.value)}
           />
         </div>
