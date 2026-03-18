@@ -7,6 +7,7 @@ import QuickStats from "./components/QuickStats";
 import ConfirmationDialog from "./components/ConfirmationDialog";
 import CreateProfileModal from "./components/CreateProfileModal";
 import DeleteConfirmationDialog from "./components/DeleteConfirmationDialog";
+import EmptyState from "./components/EmptyState"
 
 const initialProfiles = [
   {
