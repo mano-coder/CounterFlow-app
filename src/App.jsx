@@ -68,6 +68,9 @@ export default function App() {
   const activeProfile = profiles.find((profile) => profile.id === activeId);
   const [clickedDeleteProfileId, setClickedDeleteProfileId] = useState("");
 
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editingProfileId, setEditingProfileId] = useState(null);
+
   useEffect(() => {
     localStorage.setItem("profiles", JSON.stringify(profiles));
   }, [profiles]);
@@ -79,9 +82,15 @@ export default function App() {
   const handleDecrease = () => {
     const newValue = profiles.map((profile) => {
       if (profile.id === activeId) {
+        const newCount = profile.count > 0 ? profile.count - 1 : 0;
+
+        const newHistory = profile.history.map((val, index) =>
+          index === 6 ? newCount : val,
+        );
         return {
           ...profile,
-          count: profile.count > 0 ? profile.count - 1 : 0,
+          count: newCount,
+          history: newHistory,
         };
       } else {
         return profile;
@@ -93,9 +102,15 @@ export default function App() {
   const handleIncrease = () => {
     const newValue = profiles.map((profile) => {
       if (profile.id === activeId) {
+        const newCount = profile.count + 1;
+
+        const newHistory = profile.history.map((val, index) =>
+          index === 6 ? newCount : val,
+        );
         return {
           ...profile,
-          count: profile.count + 1,
+          count: newCount,
+          history: newHistory,
         };
       } else {
         return profile;
@@ -107,9 +122,14 @@ export default function App() {
   const resetCount = () => {
     const newValue = profiles.map((profile) => {
       if (profile.id === activeId) {
+        const newCount = 0;
+        const newHistory = profile.history.map((val, index) =>
+          index === 6 ? newCount : val,
+        );
         return {
           ...profile,
-          count: 0,
+          count: newCount,
+          history: newHistory,
         };
       } else {
         return profile;
@@ -148,6 +168,17 @@ export default function App() {
     const updated = profiles.filter((profile) => profile.id !== id);
     setProfiles(updated);
     if (activeId === id) setActiveId(updated[0]?.id ?? null);
+  };
+
+  const handleEdit = ({ name, icon, dailyGoal }) => {
+    setProfiles(
+      profiles.map((profile) =>
+        profile.id === editingProfileId
+          ? { ...profile, name, icon, goal: Number(dailyGoal) || 0 }
+          : profile,
+      ),
+    );
+    setShowEditModal(false);
   };
 
   // set shortcuts
@@ -193,6 +224,14 @@ export default function App() {
 
   return (
     <>
+      {showEditModal && (
+        <CreateProfileModal
+          mode="edit"
+          initialValues={profiles.find((p) => p.id === editingProfileId)}
+          onCancel={() => setShowEditModal(false)}
+          onEdit={handleEdit}
+        />
+      )}
       {showDeleteModal && (
         <DeleteConfirmationDialog
           onConfirm={() => {
@@ -229,6 +268,8 @@ export default function App() {
           onDeleteProfile={() => setShowDeleteModal(true)}
           setClickedDeleteProfileId={setClickedDeleteProfileId}
           progressCalc={progressCalc}
+          onEditProfile={() => setShowEditModal(true)}
+          setEditingProfileId={setEditingProfileId}
         />
         <main className="flex flex-1 flex-col overflow-y-auto">
           <CounterPanel
