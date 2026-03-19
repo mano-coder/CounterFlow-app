@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 import logo from "../assets/images/logo.svg";
 import { getIcon } from "../data/iconRegistry";
-import { Plus, Settings, X } from "lucide-react";
+import { Plus, Settings, X, Pencil } from "lucide-react";
 
 export default function Sidebar({
   profiles,
@@ -11,6 +11,8 @@ export default function Sidebar({
   onDeleteProfile,
   setClickedDeleteProfileId,
   progressCalc,
+  onEditProfile,
+  setEditingProfileId,
 }) {
   const profileRefs = useRef({});
   useEffect(() => {
@@ -70,6 +72,16 @@ export default function Sidebar({
                   className="text-accent-primary ml-auto hidden rounded-md group-hover:flex hover:text-white"
                 >
                   <X size={18} />
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setEditingProfileId(profile.id);
+                    onEditProfile();
+                  }}
+                  className="text-accent-primary hidden rounded-md group-hover:flex hover:text-white"
+                >
+                  <Pencil size={15} />
                 </button>
               </div>
             );
