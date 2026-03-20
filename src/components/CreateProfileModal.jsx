@@ -6,8 +6,9 @@ export default function CreateProfileModal({
   onCancel,
   onCreate,
   onEdit,
-  mode = "create", // ← fixed: default should be "create"
+  mode = "create", 
   initialValues = null,
+
 }) {
   const [selectedIcon, setSelectedIcon] = useState(initialValues?.icon ?? null);
   const [profileName, setProfileName] = useState(initialValues?.name ?? "");
