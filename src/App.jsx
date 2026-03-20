@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useKeyboard } from "./hooks/useKeyboard";
+import { Menu } from "lucide-react";
 
 import Sidebar from "./components/Sidebar";
 import CounterPanel from "./components/CounterPanel";
@@ -47,29 +48,25 @@ const initialProfiles = [
 export default function App() {
   const [profiles, setProfiles] = useState(() => {
     const savedItems = localStorage.getItem("profiles");
-    if (savedItems) {
-      return JSON.parse(savedItems);
-    }
+    if (savedItems) return JSON.parse(savedItems);
     return initialProfiles;
   });
 
   const [activeId, setActiveId] = useState(() => {
     const savedActiveId = localStorage.getItem("active-id");
-    if (savedActiveId) {
-      return JSON.parse(savedActiveId);
-    }
+    if (savedActiveId) return JSON.parse(savedActiveId);
     return profiles[0].id;
   });
 
   const [isResetOpen, setIsResetOpen] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-
-  const activeProfile = profiles.find((profile) => profile.id === activeId);
-  const [clickedDeleteProfileId, setClickedDeleteProfileId] = useState("");
-
   const [showEditModal, setShowEditModal] = useState(false);
   const [editingProfileId, setEditingProfileId] = useState(null);
+  const [clickedDeleteProfileId, setClickedDeleteProfileId] = useState("");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const activeProfile = profiles.find((profile) => profile.id === activeId);
 
   useEffect(() => {
     localStorage.setItem("profiles", JSON.stringify(profiles));
@@ -80,71 +77,44 @@ export default function App() {
   }, [activeId]);
 
   const handleDecrease = () => {
-    const newValue = profiles.map((profile) => {
-      if (profile.id === activeId) {
-        const newCount = profile.count > 0 ? profile.count - 1 : 0;
-
-        const newHistory = profile.history.map((val, index) =>
-          index === 6 ? newCount : val,
-        );
-        return {
-          ...profile,
-          count: newCount,
-          history: newHistory,
-        };
-      } else {
-        return profile;
-      }
-    });
-    setProfiles(newValue);
+    setProfiles(profiles.map((profile) => {
+      if (profile.id !== activeId) return profile;
+      const newCount = profile.count > 0 ? profile.count - 1 : 0;
+      return {
+        ...profile,
+        count: newCount,
+        history: profile.history.map((val, i) => i === 6 ? newCount : val),
+      };
+    }));
   };
 
   const handleIncrease = () => {
-    const newValue = profiles.map((profile) => {
-      if (profile.id === activeId) {
-        const newCount = profile.count + 1;
-
-        const newHistory = profile.history.map((val, index) =>
-          index === 6 ? newCount : val,
-        );
-        return {
-          ...profile,
-          count: newCount,
-          history: newHistory,
-        };
-      } else {
-        return profile;
-      }
-    });
-    setProfiles(newValue);
+    setProfiles(profiles.map((profile) => {
+      if (profile.id !== activeId) return profile;
+      const newCount = profile.count + 1;
+      return {
+        ...profile,
+        count: newCount,
+        history: profile.history.map((val, i) => i === 6 ? newCount : val),
+      };
+    }));
   };
 
   const resetCount = () => {
-    const newValue = profiles.map((profile) => {
-      if (profile.id === activeId) {
-        const newCount = 0;
-        const newHistory = profile.history.map((val, index) =>
-          index === 6 ? newCount : val,
-        );
-        return {
-          ...profile,
-          count: newCount,
-          history: newHistory,
-        };
-      } else {
-        return profile;
-      }
-    });
-    setProfiles(newValue);
+    setProfiles(profiles.map((profile) => {
+      if (profile.id !== activeId) return profile;
+      return {
+        ...profile,
+        count: 0,
+        history: profile.history.map((val, i) => i === 6 ? 0 : val),
+      };
+    }));
   };
 
   const switchProfileKey = () => {
-    const activeIdIndex = profiles.findIndex(
-      (id) => id.id === activeProfile.id,
-    );
-    const nextActiveId = profiles[activeIdIndex + 1];
+    const activeIdIndex = profiles.findIndex((p) => p.id === activeProfile.id);
     if (activeIdIndex < profiles.length - 1) {
-      setActiveId(nextActiveId.id);
+      setActiveId(profiles[activeIdIndex + 1].id);
     } else {
       setActiveId(profiles[0].id);
     }
@@ -157,7 +127,7 @@ export default function App() {
       icon,
       count: 0,
       goal: Number(dailyGoal) || 0,
-      history: [],
+      history: [0, 0, 0, 0, 0, 0, 0],
     };
     setProfiles([...profiles, newProfile]);
     setActiveId(newProfile.id);
@@ -171,17 +141,14 @@ export default function App() {
   };
 
   const handleEdit = ({ name, icon, dailyGoal }) => {
-    setProfiles(
-      profiles.map((profile) =>
-        profile.id === editingProfileId
-          ? { ...profile, name, icon, goal: Number(dailyGoal) || 0 }
-          : profile,
-      ),
-    );
+    setProfiles(profiles.map((profile) =>
+      profile.id === editingProfileId
+        ? { ...profile, name, icon, goal: Number(dailyGoal) || 0 }
+        : profile,
+    ));
     setShowEditModal(false);
   };
 
-  // set shortcuts
   useKeyboard({
     increase: handleIncrease,
     decrease: handleDecrease,
@@ -189,10 +156,7 @@ export default function App() {
     tab: switchProfileKey,
     isModalOpen: isResetOpen,
     closeModal: () => setIsResetOpen(false),
-    confirm: () => {
-      resetCount();
-      setIsResetOpen(false);
-    },
+    confirm: () => { resetCount(); setIsResetOpen(false); },
     setShowCreateModal: () => setShowCreateModal(true),
     handleCreate: handleCreate,
     isCreateOpen: showCreateModal,
@@ -216,10 +180,7 @@ export default function App() {
 
   const progressCalc =
     activeProfile.goal > 0
-      ? Math.min(
-          Math.round((activeProfile.count / activeProfile.goal) * 100),
-          100,
-        )
+      ? Math.min(Math.round((activeProfile.count / activeProfile.goal) * 100), 100)
       : 0;
 
   return (
@@ -234,10 +195,7 @@ export default function App() {
       )}
       {showDeleteModal && (
         <DeleteConfirmationDialog
-          onConfirm={() => {
-            setShowDeleteModal(false);
-            handleDelete(clickedDeleteProfileId);
-          }}
+          onConfirm={() => { setShowDeleteModal(false); handleDelete(clickedDeleteProfileId); }}
           onCancel={() => setShowDeleteModal(false)}
         />
       )}
@@ -249,12 +207,7 @@ export default function App() {
       )}
       {isResetOpen && (
         <ConfirmationDialog
-          onConfirm={() => {
-            {
-              resetCount();
-              setIsResetOpen(false);
-            }
-          }}
+          onConfirm={() => { resetCount(); setIsResetOpen(false); }}
           onCancel={() => setIsResetOpen(false)}
         />
       )}
@@ -263,15 +216,27 @@ export default function App() {
         <Sidebar
           profiles={profiles}
           activeId={activeId}
-          onSelectProfile={(id) => setActiveId(id)}
+          onSelectProfile={(id) => { setActiveId(id); setIsSidebarOpen(false); }}
           onCreateProfile={() => setShowCreateModal(true)}
           onDeleteProfile={() => setShowDeleteModal(true)}
           setClickedDeleteProfileId={setClickedDeleteProfileId}
           progressCalc={progressCalc}
           onEditProfile={() => setShowEditModal(true)}
           setEditingProfileId={setEditingProfileId}
+          isOpen={isSidebarOpen}
+          onClose={() => setIsSidebarOpen(false)}
         />
         <main className="flex flex-1 flex-col overflow-y-auto">
+
+          {/* Mobile top bar */}
+          <div className="flex items-center justify-between px-4 py-3 md:hidden">
+            <button onClick={() => setIsSidebarOpen(true)}>
+              <Menu size={20} className="text-text-primary" />
+            </button>
+            <span className="text-text-primary font-bold">CounterFlow</span>
+            <div className="w-5" />
+          </div>
+
           <CounterPanel
             activeProfile={activeProfile}
             handleDecrease={handleDecrease}
