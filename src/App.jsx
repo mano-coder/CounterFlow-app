@@ -176,7 +176,13 @@ export default function App() {
     reset: () => setIsResetOpen(true),
     tab: switchProfileKey,
     isModalOpen: isAnyModalOpen,
-    closeModal: () => setIsResetOpen(false),
+    closeModal: () => {
+      setIsResetOpen(false);
+      setIsHelpOpen(false);
+      setShowCreateModal(false);
+      setShowDeleteModal(false);
+      setShowEditModal(false);
+    },
     confirm: () => {
       resetCount();
       setIsResetOpen(false);
@@ -184,6 +190,7 @@ export default function App() {
     setShowCreateModal: () => setShowCreateModal(true),
     handleCreate: handleCreate,
     isCreateOpen: showCreateModal,
+    onHelpClick: () => setIsHelpOpen(true),
   });
 
   if (profiles.length === 0) {
