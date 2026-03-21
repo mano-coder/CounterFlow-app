@@ -190,8 +190,6 @@ export default function App() {
       setIsResetOpen(false);
     },
     setShowCreateModal: () => setShowCreateModal(true),
-    handleCreate: handleCreate,
-    isCreateOpen: showCreateModal,
     onHelpClick: () => setIsHelpOpen(true),
   });
 
