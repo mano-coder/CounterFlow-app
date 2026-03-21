@@ -1,11 +1,13 @@
-export default function QuickStats({ activeProfile }) {
+import { forwardRef } from "react"
+
+const QuickStats = forwardRef(({ activeProfile }, ref) => {
   const days = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "TODAY"];
   const maxValue = Math.max(...activeProfile.history);
   const weeklyTotal = activeProfile.history.reduce((sum, val) => sum + val, 0);
   const avgDaily = (weeklyTotal / activeProfile.history.length).toFixed(1);
 
   return (
-    <div className="bg-bg-stats">
+    <div ref={ref} className="bg-bg-stats">
       <div className="flex items-start justify-between px-8 py-6">
         <div>
           <h2 className="text-text-primary text-xl font-bold">Quick Stats</h2>
@@ -71,4 +73,6 @@ export default function QuickStats({ activeProfile }) {
       </div>
     </div>
   );
-}
+})
+
+export default QuickStats
