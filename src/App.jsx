@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useKeyboard } from "./hooks/useKeyboard";
 import { Menu } from "lucide-react";
 
@@ -68,6 +68,9 @@ export default function App() {
 
   const activeProfile = profiles.find((profile) => profile.id === activeId);
 
+  const mainRef = useRef(null);
+  const quickStatsRef = useRef(null);
+
   useEffect(() => {
     localStorage.setItem("profiles", JSON.stringify(profiles));
   }, [profiles]);
@@ -77,38 +80,44 @@ export default function App() {
   }, [activeId]);
 
   const handleDecrease = () => {
-    setProfiles(profiles.map((profile) => {
-      if (profile.id !== activeId) return profile;
-      const newCount = profile.count > 0 ? profile.count - 1 : 0;
-      return {
-        ...profile,
-        count: newCount,
-        history: profile.history.map((val, i) => i === 6 ? newCount : val),
-      };
-    }));
+    setProfiles(
+      profiles.map((profile) => {
+        if (profile.id !== activeId) return profile;
+        const newCount = profile.count > 0 ? profile.count - 1 : 0;
+        return {
+          ...profile,
+          count: newCount,
+          history: profile.history.map((val, i) => (i === 6 ? newCount : val)),
+        };
+      }),
+    );
   };
 
   const handleIncrease = () => {
-    setProfiles(profiles.map((profile) => {
-      if (profile.id !== activeId) return profile;
-      const newCount = profile.count + 1;
-      return {
-        ...profile,
-        count: newCount,
-        history: profile.history.map((val, i) => i === 6 ? newCount : val),
-      };
-    }));
+    setProfiles(
+      profiles.map((profile) => {
+        if (profile.id !== activeId) return profile;
+        const newCount = profile.count + 1;
+        return {
+          ...profile,
+          count: newCount,
+          history: profile.history.map((val, i) => (i === 6 ? newCount : val)),
+        };
+      }),
+    );
   };
 
   const resetCount = () => {
-    setProfiles(profiles.map((profile) => {
-      if (profile.id !== activeId) return profile;
-      return {
-        ...profile,
-        count: 0,
-        history: profile.history.map((val, i) => i === 6 ? 0 : val),
-      };
-    }));
+    setProfiles(
+      profiles.map((profile) => {
+        if (profile.id !== activeId) return profile;
+        return {
+          ...profile,
+          count: 0,
+          history: profile.history.map((val, i) => (i === 6 ? 0 : val)),
+        };
+      }),
+    );
   };
 
   const switchProfileKey = () => {
@@ -141,11 +150,13 @@ export default function App() {
   };
 
   const handleEdit = ({ name, icon, dailyGoal }) => {
-    setProfiles(profiles.map((profile) =>
-      profile.id === editingProfileId
-        ? { ...profile, name, icon, goal: Number(dailyGoal) || 0 }
-        : profile,
-    ));
+    setProfiles(
+      profiles.map((profile) =>
+        profile.id === editingProfileId
+          ? { ...profile, name, icon, goal: Number(dailyGoal) || 0 }
+          : profile,
+      ),
+    );
     setShowEditModal(false);
   };
 
@@ -156,7 +167,10 @@ export default function App() {
     tab: switchProfileKey,
     isModalOpen: isResetOpen,
     closeModal: () => setIsResetOpen(false),
-    confirm: () => { resetCount(); setIsResetOpen(false); },
+    confirm: () => {
+      resetCount();
+      setIsResetOpen(false);
+    },
     setShowCreateModal: () => setShowCreateModal(true),
     handleCreate: handleCreate,
     isCreateOpen: showCreateModal,
@@ -180,7 +194,10 @@ export default function App() {
 
   const progressCalc =
     activeProfile.goal > 0
-      ? Math.min(Math.round((activeProfile.count / activeProfile.goal) * 100), 100)
+      ? Math.min(
+          Math.round((activeProfile.count / activeProfile.goal) * 100),
+          100,
+        )
       : 0;
 
   return (
@@ -195,7 +212,10 @@ export default function App() {
       )}
       {showDeleteModal && (
         <DeleteConfirmationDialog
-          onConfirm={() => { setShowDeleteModal(false); handleDelete(clickedDeleteProfileId); }}
+          onConfirm={() => {
+            setShowDeleteModal(false);
+            handleDelete(clickedDeleteProfileId);
+          }}
           onCancel={() => setShowDeleteModal(false)}
         />
       )}
@@ -207,7 +227,10 @@ export default function App() {
       )}
       {isResetOpen && (
         <ConfirmationDialog
-          onConfirm={() => { resetCount(); setIsResetOpen(false); }}
+          onConfirm={() => {
+            resetCount();
+            setIsResetOpen(false);
+          }}
           onCancel={() => setIsResetOpen(false)}
         />
       )}
@@ -216,7 +239,10 @@ export default function App() {
         <Sidebar
           profiles={profiles}
           activeId={activeId}
-          onSelectProfile={(id) => { setActiveId(id); setIsSidebarOpen(false); }}
+          onSelectProfile={(id) => {
+            setActiveId(id);
+            setIsSidebarOpen(false);
+          }}
           onCreateProfile={() => setShowCreateModal(true)}
           onDeleteProfile={() => setShowDeleteModal(true)}
           setClickedDeleteProfileId={setClickedDeleteProfileId}
@@ -226,8 +252,7 @@ export default function App() {
           isOpen={isSidebarOpen}
           onClose={() => setIsSidebarOpen(false)}
         />
-        <main className="flex flex-1 flex-col overflow-y-auto">
-
+        <main ref={mainRef} className="flex flex-1 flex-col overflow-y-auto">
           {/* Mobile top bar */}
           <div className="flex items-center justify-between px-4 py-3 md:hidden">
             <button onClick={() => setIsSidebarOpen(true)}>
@@ -242,8 +267,14 @@ export default function App() {
             handleDecrease={handleDecrease}
             handleIncrease={handleIncrease}
             onResetClick={() => setIsResetOpen(true)}
+            onHistoryClick={() => {
+              mainRef.current?.scrollTo({
+                top: quickStatsRef.current?.offsetTop,
+                behavior: "smooth",
+              });
+            }}
           />
-          <QuickStats activeProfile={activeProfile} />
+          <QuickStats ref={quickStatsRef} activeProfile={activeProfile} />
         </main>
       </div>
     </>
