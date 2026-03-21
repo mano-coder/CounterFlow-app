@@ -9,6 +9,7 @@ import ConfirmationDialog from "./components/ConfirmationDialog";
 import CreateProfileModal from "./components/CreateProfileModal";
 import DeleteConfirmationDialog from "./components/DeleteConfirmationDialog";
 import EmptyState from "./components/EmptyState";
+import HelpModal from "./components/HelpModal"
 
 const initialProfiles = [
   {
@@ -65,6 +66,8 @@ export default function App() {
   const [editingProfileId, setEditingProfileId] = useState(null);
   const [clickedDeleteProfileId, setClickedDeleteProfileId] = useState("");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const [isHelpOpen, setIsHelpOpen] = useState(false)
 
   const activeProfile = profiles.find((profile) => profile.id === activeId);
 
@@ -202,6 +205,7 @@ export default function App() {
 
   return (
     <>
+    {isHelpOpen && <HelpModal onClose={() => setIsHelpOpen(false)} />}
       {showEditModal && (
         <CreateProfileModal
           mode="edit"
@@ -273,6 +277,7 @@ export default function App() {
                 behavior: "smooth",
               });
             }}
+    onHelpClick={() => setIsHelpOpen(true)}
           />
           <QuickStats ref={quickStatsRef} activeProfile={activeProfile} />
         </main>
