@@ -11,6 +11,7 @@ import DeleteConfirmationDialog from "./components/DeleteConfirmationDialog";
 import EmptyState from "./components/EmptyState";
 import HelpModal from "./components/HelpModal";
 
+/*
 const initialProfiles = [
   {
     id: "gym-reps",
@@ -45,6 +46,7 @@ const initialProfiles = [
     history: [2100, 1950, 2300, 1800, 2200, 2050, 1840],
   },
 ];
+*/
 
 export default function App() {
   const [profiles, setProfiles] = useState(() => {
