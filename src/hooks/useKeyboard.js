@@ -9,7 +9,7 @@ export function useKeyboard({
   closeModal,
   confirm,
   setShowCreateModal,
-  isCreateOpen,
+  onHelpClick,
 }) {
   useHotkeys(
     "ArrowUp",
@@ -58,6 +58,14 @@ export function useKeyboard({
       e.preventDefault();
       setShowCreateModal();
     },
-    { enabled: !isCreateOpen },
+    { enabled: !isModalOpen },
+  );
+  useHotkeys(
+    "shift+slash",
+    (e) => {
+      e.preventDefault();
+      onHelpClick();
+    },
+    { enabled: !isModalOpen },
   );
 }
