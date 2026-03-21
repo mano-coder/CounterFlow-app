@@ -9,7 +9,7 @@ import ConfirmationDialog from "./components/ConfirmationDialog";
 import CreateProfileModal from "./components/CreateProfileModal";
 import DeleteConfirmationDialog from "./components/DeleteConfirmationDialog";
 import EmptyState from "./components/EmptyState";
-import HelpModal from "./components/HelpModal"
+import HelpModal from "./components/HelpModal";
 
 const initialProfiles = [
   {
@@ -67,7 +67,7 @@ export default function App() {
   const [clickedDeleteProfileId, setClickedDeleteProfileId] = useState("");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const [isHelpOpen, setIsHelpOpen] = useState(false)
+  const [isHelpOpen, setIsHelpOpen] = useState(false);
 
   const activeProfile = profiles.find((profile) => profile.id === activeId);
 
@@ -163,12 +163,19 @@ export default function App() {
     setShowEditModal(false);
   };
 
+  const isAnyModalOpen =
+    isResetOpen ||
+    showCreateModal ||
+    showDeleteModal ||
+    showEditModal ||
+    isHelpOpen;
+
   useKeyboard({
     increase: handleIncrease,
     decrease: handleDecrease,
     reset: () => setIsResetOpen(true),
     tab: switchProfileKey,
-    isModalOpen: isResetOpen,
+    isModalOpen: isAnyModalOpen,
     closeModal: () => setIsResetOpen(false),
     confirm: () => {
       resetCount();
@@ -205,7 +212,7 @@ export default function App() {
 
   return (
     <>
-    {isHelpOpen && <HelpModal onClose={() => setIsHelpOpen(false)} />}
+      {isHelpOpen && <HelpModal onClose={() => setIsHelpOpen(false)} />}
       {showEditModal && (
         <CreateProfileModal
           mode="edit"
@@ -277,7 +284,7 @@ export default function App() {
                 behavior: "smooth",
               });
             }}
-    onHelpClick={() => setIsHelpOpen(true)}
+            onHelpClick={() => setIsHelpOpen(true)}
           />
           <QuickStats ref={quickStatsRef} activeProfile={activeProfile} />
         </main>
