@@ -6,9 +6,8 @@ export default function CreateProfileModal({
   onCancel,
   onCreate,
   onEdit,
-  mode = "create", 
+  mode = "create",
   initialValues = null,
-
 }) {
   const [selectedIcon, setSelectedIcon] = useState(initialValues?.icon ?? null);
   const [profileName, setProfileName] = useState(initialValues?.name ?? "");
@@ -60,7 +59,7 @@ export default function CreateProfileModal({
           <input
             type="number"
             className="relative appearance-none rounded-md bg-white/10 px-3 py-2 text-sm outline-none [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
-            value={dailyGoal} // ← add value for pre-fill
+            value={dailyGoal} 
             onChange={(e) => setDailyGoal(e.target.value)}
           />
         </div>
@@ -74,7 +73,7 @@ export default function CreateProfileModal({
           </button>
           <button
             className="shadow-progress-fill/20 bg-accent-primary hover:bg-accent-bright flex-1 rounded-xl px-10 py-3 font-semibold shadow-lg"
-            onClick={handleSubmit} // ← fixed typo
+            onClick={() => handleSubmit()}
           >
             {mode === "edit" ? "Save Changes" : "Create"}
           </button>
