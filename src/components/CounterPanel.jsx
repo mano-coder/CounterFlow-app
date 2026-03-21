@@ -1,4 +1,4 @@
-import { Minus, Plus, RotateCcw, History, Share2 } from "lucide-react";
+import { Minus, Plus, RotateCcw, History, HelpCircle } from "lucide-react";
 
 export default function CounterPanel({
   activeProfile,
@@ -6,6 +6,7 @@ export default function CounterPanel({
   handleIncrease,
   onResetClick,
   onHistoryClick,
+onHelpClick,
 }) {
   return (
     <div className="text-text-primary bg-bg-main flex min-h-screen flex-1 flex-col">
@@ -22,8 +23,8 @@ export default function CounterPanel({
           <button className="bg-bg-card text-text-secondary hover:text-text-primary border-stroke-card flex h-[40px] w-[40px] items-center justify-center rounded-xl border-2 border-solid" onClick={onHistoryClick}>
             <History size={20} />
           </button>
-          <button className="bg-bg-card text-text-secondary hover:text-text-primary border-stroke-card flex h-[40px] w-[40px] items-center justify-center rounded-xl border-2 border-solid">
-            <Share2 size={20} />
+          <button className="bg-bg-card text-text-secondary hover:text-text-primary border-stroke-card flex h-[40px] w-[40px] items-center justify-center rounded-xl border-2 border-solid" onClick={onHelpClick}>
+            <HelpCircle size={20} />
           </button>
         </div>
       </div>
