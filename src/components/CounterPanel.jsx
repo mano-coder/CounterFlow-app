@@ -5,6 +5,7 @@ export default function CounterPanel({
   handleDecrease,
   handleIncrease,
   onResetClick,
+  onHistoryClick,
 }) {
   return (
     <div className="text-text-primary bg-bg-main flex min-h-screen flex-1 flex-col">
@@ -18,7 +19,7 @@ export default function CounterPanel({
           </p>
         </div>
         <div className="flex gap-2">
-          <button className="bg-bg-card text-text-secondary hover:text-text-primary border-stroke-card flex h-[40px] w-[40px] items-center justify-center rounded-xl border-2 border-solid">
+          <button className="bg-bg-card text-text-secondary hover:text-text-primary border-stroke-card flex h-[40px] w-[40px] items-center justify-center rounded-xl border-2 border-solid" onClick={onHistoryClick}>
             <History size={20} />
           </button>
           <button className="bg-bg-card text-text-secondary hover:text-text-primary border-stroke-card flex h-[40px] w-[40px] items-center justify-center rounded-xl border-2 border-solid">
@@ -78,7 +79,7 @@ export default function CounterPanel({
             >
               <RotateCcw size={24} strokeWidth={3} />
             </button>
-            <span className="text-text-muted text-[10px] font-bold tracking-widest" >
+            <span className="text-text-muted text-[10px] font-bold tracking-widest">
               RESET
             </span>
           </div>
