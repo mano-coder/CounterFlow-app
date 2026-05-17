@@ -29,11 +29,13 @@ export default function App() {
     return initialProfiles;
   });
 
+
   const [activeId, setActiveId] = useState(() => {
     const savedActiveId = localStorage.getItem("active-id");
     if (savedActiveId) return JSON.parse(savedActiveId);
     return profiles[0].id && null ;
   });
+
 
   const [isResetOpen, setIsResetOpen] = useState(false);
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -125,7 +127,10 @@ export default function App() {
   const handleDelete = (id) => {
     const updated = profiles.filter((profile) => profile.id !== id);
     setProfiles(updated);
-    if (activeId === id) setActiveId(updated[0]?.id ?? null);
+    if (activeId === id) {
+        const newId = updated[0]?.id ?? null;
+        setActiveId(newId); // useEffect will sync this to localStorage
+    }
   };
 
   const handleEdit = ({ name, icon, dailyGoal }) => {
