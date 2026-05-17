@@ -26,7 +26,7 @@ export default function App() {
   const [profiles, setProfiles] = useState(() => {
     const savedItems = localStorage.getItem("profiles");
     if (savedItems) return JSON.parse(savedItems);
-    return [initialProfiles];
+    return initialProfiles;
   });
 
   const [activeId, setActiveId] = useState(() => {
