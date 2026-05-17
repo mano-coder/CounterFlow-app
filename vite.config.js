@@ -4,7 +4,7 @@ import react from "@vitejs/plugin-react";
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: 'CounterFlow-app',
+  base: '/CounterFlow-app/',
   plugins: [react(), tailwindcss()],
   build: {
     sourcemap: true
