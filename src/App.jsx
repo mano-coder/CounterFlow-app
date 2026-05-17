@@ -13,36 +13,12 @@ import HelpModal from "./components/HelpModal";
 
 const initialProfiles = [
   {
-    id: "gym-reps",
-    name: "Gym Reps",
+    id: "Untitled",
+    name: "untitled",
     icon: "dumbbell",
-    count: 42,
-    goal: 100,
-    history: [30, 45, 38, 55, 40, 41, 42],
-  },
-  {
-    id: "water-intake",
-    name: "Water Intake",
-    icon: "droplet",
-    count: 6,
-    goal: 8,
-    history: [8, 6, 7, 8, 5, 6, 6],
-  },
-  {
-    id: "project-tasks",
-    name: "Project Tasks",
-    icon: "flame",
-    count: 3,
+    count: 0,
     goal: 10,
-    history: [5, 8, 4, 9, 6, 7, 3],
-  },
-  {
-    id: "calorie-track",
-    name: "Calorie Track",
-    icon: "utensils",
-    count: 1840,
-    goal: 2500,
-    history: [2100, 1950, 2300, 1800, 2200, 2050, 1840],
+    history: [0, 0, 0, 0, 0, 0, 0],
   },
 ];
 
