@@ -6,7 +6,7 @@ export default function CounterPanel({
   handleIncrease,
   onResetClick,
   onHistoryClick,
-onHelpClick,
+  onHelpClick,
 }) {
   return (
     <div className="text-text-primary bg-bg-main flex min-h-screen flex-1 flex-col">
