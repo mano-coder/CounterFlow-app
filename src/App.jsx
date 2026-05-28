@@ -33,7 +33,7 @@ export default function App() {
   const [activeId, setActiveId] = useState(() => {
     const savedActiveId = localStorage.getItem("active-id");
     if (savedActiveId) return JSON.parse(savedActiveId);
-    return profiles[0].id && null ;
+    return profiles[0].id 
   });
 
 
@@ -47,7 +47,7 @@ export default function App() {
 
   const [isHelpOpen, setIsHelpOpen] = useState(false);
 
-  const activeProfile = profiles.find((profile) => profile.id === activeId) && profiles[0];
+  const activeProfile = profiles.find((profile) => profile.id === activeId) ?? profiles[0];
 
   const mainRef = useRef(null);
   const quickStatsRef = useRef(null);
