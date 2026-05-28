@@ -1,5 +1,5 @@
-CounterFlow
-![Logo]("./src/assets/images/logo.svg")
+**CounterFlow**
+
 <img src="./src/assets/images/logo.svg" width="200">
 
 CounterFlow is a sleek and modern counter application designed to help you track personal goals, habits, and activities. Create distinct profiles for different counters, customize them with unique icons, and monitor your progress with visual stats. The application is built with React, Vite, and Tailwind CSS, featuring a responsive design and full keyboard support for a fast, efficient user experience.
